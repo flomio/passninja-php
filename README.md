@@ -12,7 +12,7 @@ Use <a href="https://passninja.com/docs">passninja-php</a> as a PHP package.</h3
         <img alt="Issues" src="https://img.shields.io/github/issues/flomio/passninja-php.svg" />
     </a>
     <a href="https://packagist.org/packages/passninja/passninja">
-        <img alt="Gem" src="https://img.shields.io/gem/v/passninja.svg?style=flat-square" />
+        <img alt="Package" src="https://img.shields.io/package/v/passninja.svg?style=flat-square" />
     </a>
 </div>
 
