@@ -1,0 +1,27 @@
+##### PHPUnit
+# PHPUnit caches
+.phpunit.cache
+
+# Log file - the following switch allows to specify the file that will be
+# used to write all messages from simulation:  -l <filename>
+*.log
+.DS_Store
+
+##### PuTTY
+# Private key
+*.ppk
+
+##### VisualStudioCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+##### Composer
+composer.phar
+/vendor/
