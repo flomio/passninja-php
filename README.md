@@ -36,7 +36,6 @@ composer require passninja/passninja
 Use this class to create a `PassNinjaClient` object. Make sure to
 pass your user credentials to make any authenticated requests.
 ```php
-// require 'passninja'
 use PassNinja\PassNinjaClient;
 
 $account_id = '**your-account-id**'
