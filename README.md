@@ -20,8 +20,8 @@ Use <a href="https://passninja.com/docs">passninja-php</a> as a PHP package.</h3
 - [Contents](#contents)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [`Passninja::Client`](#passninjaclient)
-  - [`Passninja::Client Methods`](#passninjaclient-methods)
+  - [`PassNinjaClient`](#passninjaclient)
+  - [`PassNinjaClient Methods`](#passninjaclient-methods)
   - [Examples](#examples)
 - [Documentation](#documentation)
 
@@ -32,15 +32,16 @@ composer require passninja/passninja
 ```
 
 # Usage
-## `Passninja::Client`
-Use this class to create a `Passninja::Client` object. Make sure to
+## `PassNinjaClient`
+Use this class to create a `PassNinjaClient` object. Make sure to
 pass your user credentials to make any authenticated requests.
 ```php
-require 'passninja'
+// require 'passninja'
+use PassNinja\PassNinjaClient;
 
-account_id = '**your-account-id**'
-api_key = '**your-api-key**'
-pass_ninja_client = Passninja::Client.new(account_id, api_key)
+$account_id = '**your-account-id**'
+$api_key = '**your-api-key**'
+$pass_ninja_client = new PassNinjaClient($account_id, $api_key);
 ```
 
 We've placed our demo user API credentials in this example. Replace it with your
@@ -49,36 +50,35 @@ through your PassNinja account and don't hesitate to contact
 [PassNinja](https://passninja.com) with our built in chat system if you'd like
 to subscribe and create your own custom pass type(s).
 
-## `Passninja::Client Methods`
+## `PassNinjaClient Methods`
 This library currently supports methods for creating, getting, updating, and
 deleting passes via the PassNinja API. The methods are outlined below.
 
 ### Get Pass Template Details
 ```php
-pass_template = pass_ninja_client.pass_templates.find('ptk_0x14') # pass template key
-puts pass_template['pass_type_id']
+$pass_template = $pass_ninja_client->passTemplate['find']('ptk_0x14'); # passType or pass template key
 ```
 
 ### Create
 ```php
-simple_pass_object = pass_ninja_client.passes.create(
+$simple_pass_object = $pass_ninja_client->pass['create'](
   'ptk_0x14', # passType
-  { discount: '50%', memberName: 'John' } # passData
+  [ 
+    'discount' => '50%',
+    'memberName' => 'John'
+  ] # passData
 )
-puts simple_pass_object['url']
-puts simple_pass_object['passType']
-puts simple_pass_object['serialNumber']
 ```
 
 ### Find
 Finds issued passes for a given pass template key
 ```php
-pass_objects = pass_ninja_client.passes.find('ptk_0x14') # passType aka pass template key
+$pass_objects = $pass_ninja_client->pass['find']('ptk_0x14') # passType or pass template key
 ```
 
 ### Get
 ```php
-detailed_pass_object = pass_ninja_client.passes.get(
+$detailed_pass_object = $pass_ninja_client->pass['get'](
   'ptk_0x14', # passType
   'ce61b0e13da9a7fe7e' # serialNumber
 )
@@ -87,7 +87,7 @@ detailed_pass_object = pass_ninja_client.passes.get(
 ### Decrypt
 Decrypts issued passes payload for a given pass template key
 ```php
-decrypted_pass_object = pass_ninja_client.passes.decrypt(
+$decrypted_pass_object = $pass_ninja_client->pass['decrypt'](
   'ptk_0x14', # passType
   '55166a9700250a8c51382dd16822b0c763136090b91099c16385f2961b7d9392d31b386cae133dca1b2faf10e93a1f8f26343ef56c4b35d5bf6cb8cd9ff45177e1ea070f0d4fe88887' # payload
 )
@@ -95,20 +95,22 @@ decrypted_pass_object = pass_ninja_client.passes.decrypt(
 
 ### Update
 ```php
-updated_pass_object = pass_ninja_client.passes.update(
+$updated_pass_object = $pass_ninja_client->pass['update'](
   'ptk_0x14', # passType
   'ce61b0e13da9a7fe7e', # serialNumber
-  { discount: '100%', memberName: 'Ted' } # passData
+  [ 
+    'discount' => '100%',
+    'memberName' => 'Ted'
+  ] # passData
 )
 ```
 
 ### Delete
 ```php
-deleted_pass_serial_number = pass_ninja_client.passes.delete(
+$deleted_pass_serial_number = $pass_ninja_client.pass['delete'](
   'ptk_0x14', # passType
   'ce61b0e13da9a7fe7e' # serialNumber
 )
-puts "Pass deleted. Serial_number: #{deleted_pass_serial_number}"
 ```
 
 # Documentation
