@@ -23,7 +23,7 @@
         "phpunit/phpunit": "^11.3"
     },
     "require": {
-        "guzzlehttp/guzzle": "^8.0"
+        "guzzlehttp/guzzle": "7.9.3"
     },
     "minimum-stability": "stable"
 }
