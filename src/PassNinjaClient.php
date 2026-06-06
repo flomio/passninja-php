@@ -115,7 +115,7 @@ class PassNinjaClient
         try {
             $response = $this->client->post('/v1/passes', [
                 'json' => [
-                    'passType' => $passType,
+                    'passTemplate' => $passType,
                     'pass' => $clientPassData,
                 ]
             ]);
@@ -123,7 +123,7 @@ class PassNinjaClient
             return [
                 'url' => $data['urls']['landing'],
                 'serialNumber' => $data['serialNumber'],
-                'passType' => $data['passType'],
+                'passTemplate' => $data['passTemplate'],
             ];
         } catch (RequestException $e) {
             throw new \RuntimeException('Failed to create pass', 0, $e);
@@ -161,7 +161,7 @@ class PassNinjaClient
         try {
             $response = $this->client->put("/v1/passes/" . urlencode($passType) . "/" . urlencode($serialNumber), [
                 'json' => [
-                    'passType' => $passType,
+                    'passTemplate' => $passType,
                     'pass' => $clientPassData,
                 ]
             ]);

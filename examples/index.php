@@ -25,13 +25,13 @@ print_r($myPass);
 echo "</pre>";
 
 // Finds issued passes for a given pass template key
-$passInfo = $passninja->pass['get']($myPass['passType'], $myPass['serialNumber']);
+$passInfo = $passninja->pass['get']($myPass['passTemplate'], $myPass['serialNumber']);
 echo "<pre>================ Get Pass ======================";
 print_r($passInfo);
 echo "</pre>";
 
 // Fetch record to update the pass
-$myPass = $passninja->pass['put']($myPass['passType'], $myPass['serialNumber'], [
+$myPass = $passninja->pass['put']($myPass['passTemplate'], $myPass['serialNumber'], [
     "icon-url" => "passninja.com",
     "nfc-message" => "blah",
     "member-name" => "Scott Tiger",
@@ -48,5 +48,5 @@ print_r($myPass);
 echo "</pre>";
 
 // Delete the pass
-$deletedPassSerialNumber = $passninja->pass['delete']($myPass['passType'], $myPass['serialNumber']);
+$deletedPassSerialNumber = $passninja->pass['delete']($myPass['passTemplate'], $myPass['serialNumber']);
 echo 'Pass deleted. serial_number: '.$deletedPassSerialNumber;

@@ -1,5 +1,5 @@
 {
-  "passType": "demo.coupon",
+  "passTemplate": "demo.coupon",
   "serialNumber": "2dcf7187-4eea-42a2-aabe-d7ca5a78f3dd",
   "pass": {"discount": "50%", "memberName": "John"},
   "urls": {
