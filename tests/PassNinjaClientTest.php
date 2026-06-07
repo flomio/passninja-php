@@ -124,7 +124,7 @@ class PassNinjaClientTest extends TestCase
         $passNinja = $this->setUpMockPassNinja([json_encode($getPassFixture)]);
 
         $getPassResponse = $passNinja->pass['get'](
-            $getPassFixture['passType'],
+            $getPassFixture['passTemplate'],
             $getPassFixture['serialNumber']
         );
         
@@ -144,7 +144,7 @@ class PassNinjaClientTest extends TestCase
         $passNinja = $this->setUpMockPassNinja([json_encode($putPassFixture)]);
 
         $putPassResponse = $passNinja->pass['put'](
-            $putPassFixture['passType'],
+            $putPassFixture['passTemplate'],
             $putPassFixture['serialNumber'],
             [
                 'logoText' => 'Put Example Loyalty',
@@ -173,7 +173,7 @@ class PassNinjaClientTest extends TestCase
 
         $passNinja = $this->setUpMockPassNinja([$createPassFixture['serialNumber']]);
         
-        $deletePassResponse = $passNinja->pass['delete']($createPassFixture['passType'], $createPassFixture['serialNumber']);
+        $deletePassResponse = $passNinja->pass['delete']($createPassFixture['passTemplate'], $createPassFixture['serialNumber']);
         $this->assertEquals($deletePassResponse, $createPassFixture['serialNumber']);
 
     }

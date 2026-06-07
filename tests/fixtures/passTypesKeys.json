@@ -1,5 +1,5 @@
 {
-  "passType": "demo.coupon",
+  "passTemplate": "demo.coupon",
   "keys": [
     "barcode",
     "description",

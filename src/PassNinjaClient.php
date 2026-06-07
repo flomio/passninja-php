@@ -40,6 +40,7 @@ class PassNinjaClient
         $this->pass['create'] = [$this, 'createPass'];
         $this->pass['get'] = [$this, 'getPass'];
         $this->pass['put'] = [$this, 'putPass'];
+        $this->pass['patch'] = [$this, 'patchPass'];
         $this->pass['delete'] = [$this, 'deletePass'];
         $this->pass['find'] = [$this, 'findPasses'];
         $this->pass['decrypt'] = [$this, 'decryptPass'];
@@ -115,7 +116,7 @@ class PassNinjaClient
         try {
             $response = $this->client->post('/v1/passes', [
                 'json' => [
-                    'passType' => $passType,
+                    'passTemplate' => $passType,
                     'pass' => $clientPassData,
                 ]
             ]);
@@ -123,7 +124,7 @@ class PassNinjaClient
             return [
                 'url' => $data['urls']['landing'],
                 'serialNumber' => $data['serialNumber'],
-                'passType' => $data['passType'],
+                'passTemplate' => $data['passTemplate'],
             ];
         } catch (RequestException $e) {
             throw new \RuntimeException('Failed to create pass', 0, $e);
@@ -161,13 +162,39 @@ class PassNinjaClient
         try {
             $response = $this->client->put("/v1/passes/" . urlencode($passType) . "/" . urlencode($serialNumber), [
                 'json' => [
-                    'passType' => $passType,
+                    'passTemplate' => $passType,
                     'pass' => $clientPassData,
                 ]
             ]);
             return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
             throw new \RuntimeException('Failed to update pass', 0, $e);
+        }
+    }
+
+    public function patchPass($passType, $serialNumber, $clientPassData): array
+    {
+        if (!is_string($passType) || !is_string($serialNumber)) {
+            throw new PassNinjaInvalidArgumentsException(
+                'Must provide both passType and serialNumber to PassNinjaClient.patchPass method.'
+            );
+        }
+        $invalidKeys = $this->extractInvalidKeys($clientPassData);
+        if (!empty($invalidKeys)) {
+            throw new PassNinjaInvalidArgumentsException(
+                'Invalid templateStrings provided in clientPassData object. Invalid keys: ' . json_encode($invalidKeys)
+            );
+        }
+        try {
+            $response = $this->client->patch("/v1/passes/" . urlencode($passType) . "/" . urlencode($serialNumber), [
+                'json' => [
+                    'passTemplate' => $passType,
+                    'pass' => $clientPassData,
+                ]
+            ]);
+            return json_decode($response->getBody(), true);
+        } catch (RequestException $e) {
+            throw new \RuntimeException('Failed to patch pass', 0, $e);
         }
     }
 
